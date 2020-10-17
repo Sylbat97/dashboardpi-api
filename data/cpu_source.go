@@ -10,7 +10,7 @@ import (
 
 func GetCPUData() (CPU, error) {
 	var cpu CPU
-	cmd := "mpstat 1 1 | tail -n 1 | cut -f1 | awk '{print $12}'"
+	cmd := "mpstat 1 1 | tail -n 1 | awk '{print $12}'"
 	out, err := exec.Command("bash", "-c", cmd).Output()
 	if err != nil {
 		return cpu, errors.New("Cannot execute mpstat command")
