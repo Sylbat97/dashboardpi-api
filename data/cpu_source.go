@@ -37,15 +37,16 @@ func getUsageData(wg *sync.WaitGroup, cpu *CPU, errstr *string) {
 	out, err := exec.Command("bash", "-c", cmd).Output()
 	if err != nil {
 		wg.Done()
-		*errstr = "Cannot get usage data"
+		*errstr = err.Error()
 		return
 	}
-	result := strings.TrimSuffix(string(out), "\n")
+	result := strings.ReplaceAll(strings.TrimSuffix(string(out), "\n"), ",", "")
 	cpuUsage, err := strconv.ParseFloat(result, 64)
+	fmt.Println(cpuUsage)
 	cpuUsage = 100.00 - cpuUsage
 	if err != nil {
 		wg.Done()
-		*errstr = "Cannot get usage data"
+		*errstr = err.Error()
 		return
 	}
 	cpu.Usage = cpuUsage
@@ -58,14 +59,14 @@ func getTempData(wg *sync.WaitGroup, cpu *CPU, errstr *string) {
 	out, err := exec.Command("bash", "-c", cmd).Output()
 	if err != nil {
 		wg.Done()
-		*errstr = "Cannot get temp data"
+		*errstr = err.Error()
 		return
 	}
-	result := strings.TrimSuffix(string(out), "\n")
+	result := strings.ReplaceAll(strings.TrimSuffix(string(out), "\n"), ",", "")
 	cpuTemp, err := strconv.ParseFloat(result, 64)
 	if err != nil {
 		wg.Done()
-		*errstr = "Cannot get temp data"
+		*errstr = err.Error()
 		return
 	}
 	cpu.Temp = cpuTemp
