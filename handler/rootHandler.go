@@ -17,7 +17,7 @@ func (fn RootHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// This is where our error handling logic starts.
 	log.Printf("An error accured: %v", err) // Log the error.
 
-	error, ok := err.(BaseHttpError) // Check if it is a http error.
+	error, ok := err.(BaseHTTPError) // Check if it is a http error.
 	if !ok {
 		w.WriteHeader(500) // return 500 Internal Server Error.
 		return
