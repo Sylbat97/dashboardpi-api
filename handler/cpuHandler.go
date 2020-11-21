@@ -10,7 +10,6 @@ import (
 /*
 CPUHandler extends RootHandler
 Return information related to CPU
-Ameliorations : Monitor CPU in background and cache data to reduce response time
 */
 func CPUHandler(w http.ResponseWriter, r *http.Request) error {
 	cpu, err := data.GetCPUData()

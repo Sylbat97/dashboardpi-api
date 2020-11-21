@@ -10,6 +10,7 @@ type RootHandler func(http.ResponseWriter, *http.Request) error
 
 // rootHandler implements http.Handler interface.
 func (fn RootHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/json")
 	err := fn(w, r) // Call handler function
 	if err == nil {
 		return
