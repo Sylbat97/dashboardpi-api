@@ -31,6 +31,7 @@ func GetDiskData() (Disk, error) {
 	var errstr string
 
 	fmt.Println("Getting disk usage")
+	#Sizes in kB
 	cmd := "df -x tmpfs -x devtmpfs -Tk | tail -n +2"
 
 	out, err := exec.Command("bash", "-c", cmd).Output()
